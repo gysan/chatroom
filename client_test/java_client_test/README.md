@@ -1,0 +1,2 @@
+
+java_client_test是一个java客户端与服务器通信的例子。（eclipse工程）

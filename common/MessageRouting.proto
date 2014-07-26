@@ -1,0 +1,167 @@
+package common;
+
+//消息类型
+enum MessageCommand {
+    // 心跳初始化
+    HEARTBEAT_INIT = 0;
+    // 心跳
+    HEARTBEAT = 1;
+    // 用户登录
+    USER_LOGIN = 2;
+    // 用户登出
+    USER_LOGOUT = 3;
+    // 消息
+    MESSAGE = 4;
+    // 接收到消息后向服务器发确认
+    RECEIVE_MESSAGE_ACK = 5;
+    // Normal消息确认
+    NORMARL_MESSAGE_ACK = 6;
+
+    // 心跳初始化响应
+    HEARTBEAT_INIT_RESPONSE = 100;
+    // 心跳响应
+    HEARTBEAT_RESPONSE = 101;
+    // 用户登录响应
+    USER_LOGIN_RESPONSE = 102;
+    // 用户登出响应
+    USER_LOGOUT_RESPONSE = 103;
+    // 消息响应
+    MESSAGE_RESPONSE = 104;
+
+    // 接收服务器发的消息
+    RECEIVE_MESSAGE = 200;
+    // Normarl push
+    NORMARL_MESSAGE = 201;
+}
+
+// 0: 心跳初始化
+message HeartbeatInit {
+    // 上次长连接最后一次心跳的间隔（即便不成功也算数)
+    required int32 last_timeout = 1;
+    //扩展字段
+    optional string extra = 2;
+}
+
+// 100: 心跳初始化响应
+message HeartbeatInitResponse {
+    // 返回下一次心跳时间
+    optional int32 next_heartbeat = 1;
+    //扩展字段
+    optional string extra = 2;
+}
+
+// 1: 心跳
+message Heartbeat {
+    //　上次心跳时间
+    optional int32 last_delay = 1;
+    //　扩展字段
+    optional string extra = 2;
+}
+
+// 101: 心跳响应
+message HeartbeatResponse {
+    // 返回下一次心跳时间
+    optional int32 next_heartbeat = 1;
+    //扩展字段
+    optional string extra = 2;
+}
+
+// 2: 用户登录
+message UserLogin {
+    // 用户id
+    required string user_id = 1;
+    // Channel
+    optional string channel = 2;
+    // 版本
+    optional string version = 3;
+    // token
+    optional string token = 4;
+    // 扩展字段
+    optional string extra = 5;
+}
+
+// 102: 用户登录响应
+message UserLoginResponse {
+    //用户登录是否成功
+    required bool status = 1;
+    //扩展字段
+    optional string extra = 2;
+}
+
+// 3: 用户登出
+message UserLogout {
+    // 用户id
+    required string user_id = 1;
+    //扩展字段
+    optional string extra = 2;
+}
+
+// 103: 用户登出返回
+message UserLogoutResponse {
+    //用户是否成功退出
+    required bool status = 1;
+    //扩展字段
+    optional string extra = 2;
+}
+
+// 4, 200: 消息, 消息响应
+message Message {
+    // 客户端生成消息id
+    required string message_id = 1;
+    // 发送者
+    required string sender = 2;
+    // 接收者
+    required string receiver = 3;
+    // 消息体
+    required string message_body = 4;
+    // 收发消息时间
+    optional int64 date = 5;
+    //扩展字段
+    optional string extra = 6;
+}
+
+// 104: 消息响应
+message MessageResponse {
+    // 客户端生产消息id
+    required string message_id = 1;
+    // 状态
+    required bool status = 2;
+    //扩展字段
+    optional string extra = 3;
+}
+
+// 5: 接收到消息后向服务器发确认
+message ReceiveMessageAck {
+    // 消息id
+    required string message_id = 1;
+    // 消息状态　0：正在下发中；1：已经下发push但未查看；2：收到push并已经查看
+    required int32 status = 2;
+    //扩展字段
+    optional string extra = 3;
+}
+
+// 201: 通用PUSH
+message NormalMessage {
+    // 消息id
+    required string message_id = 1;
+    // 收件人
+    required string receiver = 2;
+    // 内容， 最长1024字节
+    required bytes content = 3;
+    // 消息生成的时间和日期， 默认为东八区
+    required int64 date = 4;
+    // 过期时间,单位：s
+    optional int32 expire = 5;
+    //客户端收到消息确认
+    optional string extra = 6;
+}
+
+// 6: 单条NORMAL消息ack
+message NormalMessageAck {
+    // 消息id
+    required string message_id = 1;
+    // 消息状态　0：正在下发中；1：已经下发push但未查看；2：收到push并已经查看
+    required int32 status = 2;
+    //扩展字段
+    optional string extra = 3;
+}
