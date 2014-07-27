@@ -113,7 +113,7 @@ func (this *Server) Stop() {
 }
 
 func (this *Server) BindMsgHandler(pacType uint32, fn interface{}) error {
-	glog.Info("Bind message handler")
+	glog.Infof("Bind message handler: %v", pacType)
 	return this.funcMap.Bind(pacType, fn)
 }
 

@@ -9,28 +9,22 @@ import (
 	"net"
 )
 
-// ---------------------------数据包构造------------------------------------
-// （1）字节序：大端模式
+/* ---------------------------数据包构造------------------------------------
+（1）字节序：大端模式
 
-// （2）数据包组成：包长 + 类型 + 包体
+（2）数据包组成：标签 + 类型 + 包长 + 包体
 
-//  包长：4字节，uint32，整个数据包的长度
+标签：4字节，uint32，每次加1
 
-//  类型：4字节，uint32
+类型：4字节，uint32
 
-//  包体：字节数组，[]byte
+包长：4字节，uint32，包体的长度
 
-//  包长和类型用明文传输，包体由结构体采用protobuf序列化后再进行AES加密得到。
-// --------------------------------------------------------------------------
+包体：字节数组，[]byte
 
-// 数据包的类型
-const (
-	PK_ClientLogin       = uint32(11)
-	PK_ServerAcceptLogin = uint32(12)
-	PK_ClientLogout      = uint32(13)
-	PK_ClientPing        = uint32(14)
-	PK_C2CTextChat       = uint32(15)
-)
+标签，类型和包长用明文传输，包体由结构体采用protobuf序列化后再进行AES加密得到。
+ --------------------------------------------------------------------------*/
+
 
 type Packet struct {
 	Tag     uint32
@@ -91,6 +85,7 @@ func Unpack(pac *Packet, pb interface{}) error {
 func GetPacketFromBuffer(conn *net.TCPConn) (*Packet, error) {
 	head := make([]byte, 12)
 	conn.Read(head)
+	glog.Infof("Head buffer: %v", head)
 	tag := BytesToUint32(head[0:4])
 	if tag == 0 {
 		return nil, errors.New("Buffer not exist")
