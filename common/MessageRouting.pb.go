@@ -32,23 +32,38 @@ import math "math"
 var _ = proto.Marshal
 var _ = math.Inf
 
+// 消息类型
 type MessageCommand int32
 
 const (
-	MessageCommand_HEARTBEAT_INIT          MessageCommand = 0
-	MessageCommand_HEARTBEAT               MessageCommand = 1
-	MessageCommand_USER_LOGIN              MessageCommand = 2
-	MessageCommand_USER_LOGOUT             MessageCommand = 3
-	MessageCommand_MESSAGE                 MessageCommand = 4
-	MessageCommand_RECEIVE_MESSAGE_ACK     MessageCommand = 5
-	MessageCommand_NORMARL_MESSAGE_ACK     MessageCommand = 6
+	// 心跳初始化
+	MessageCommand_HEARTBEAT_INIT MessageCommand = 0
+	// 心跳
+	MessageCommand_HEARTBEAT MessageCommand = 1
+	// 用户登录
+	MessageCommand_USER_LOGIN MessageCommand = 2
+	// 用户登出
+	MessageCommand_USER_LOGOUT MessageCommand = 3
+	// 消息
+	MessageCommand_MESSAGE MessageCommand = 4
+	// 接收到消息后向服务器发确认
+	MessageCommand_RECEIVE_MESSAGE_ACK MessageCommand = 5
+	// Normal消息确认
+	MessageCommand_NORMARL_MESSAGE_ACK MessageCommand = 6
+	// 心跳初始化响应
 	MessageCommand_HEARTBEAT_INIT_RESPONSE MessageCommand = 100
-	MessageCommand_HEARTBEAT_RESPONSE      MessageCommand = 101
-	MessageCommand_USER_LOGIN_RESPONSE     MessageCommand = 102
-	MessageCommand_USER_LOGOUT_RESPONSE    MessageCommand = 103
-	MessageCommand_MESSAGE_RESPONSE        MessageCommand = 104
-	MessageCommand_RECEIVE_MESSAGE         MessageCommand = 200
-	MessageCommand_NORMARL_MESSAGE         MessageCommand = 201
+	// 心跳响应
+	MessageCommand_HEARTBEAT_RESPONSE MessageCommand = 101
+	// 用户登录响应
+	MessageCommand_USER_LOGIN_RESPONSE MessageCommand = 102
+	// 用户登出响应
+	MessageCommand_USER_LOGOUT_RESPONSE MessageCommand = 103
+	// 消息响应
+	MessageCommand_MESSAGE_RESPONSE MessageCommand = 104
+	// 接收服务器发的消息
+	MessageCommand_RECEIVE_MESSAGE MessageCommand = 200
+	// Normarl push
+	MessageCommand_NORMARL_MESSAGE MessageCommand = 201
 )
 
 var MessageCommand_name = map[int32]string{
@@ -101,8 +116,11 @@ func (x *MessageCommand) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// 0: 心跳初始化
 type HeartbeatInit struct {
-	LastTimeout      *int32  `protobuf:"varint,1,req,name=last_timeout" json:"last_timeout,omitempty"`
+	// 上次长连接最后一次心跳的间隔（即便不成功也算数)
+	LastTimeout *int32 `protobuf:"varint,1,req,name=last_timeout" json:"last_timeout,omitempty"`
+	// 扩展字段
 	Extra            *string `protobuf:"bytes,2,opt,name=extra" json:"extra,omitempty"`
 	XXX_unrecognized []byte  `json:"-"`
 }
@@ -125,8 +143,11 @@ func (m *HeartbeatInit) GetExtra() string {
 	return ""
 }
 
+// 100: 心跳初始化响应
 type HeartbeatInitResponse struct {
-	NextHeartbeat    *int32  `protobuf:"varint,1,opt,name=next_heartbeat" json:"next_heartbeat,omitempty"`
+	// 返回下一次心跳时间
+	NextHeartbeat *int32 `protobuf:"varint,1,opt,name=next_heartbeat" json:"next_heartbeat,omitempty"`
+	// 扩展字段
 	Extra            *string `protobuf:"bytes,2,opt,name=extra" json:"extra,omitempty"`
 	XXX_unrecognized []byte  `json:"-"`
 }
@@ -149,8 +170,11 @@ func (m *HeartbeatInitResponse) GetExtra() string {
 	return ""
 }
 
+// 1: 心跳
 type Heartbeat struct {
-	LastDelay        *int32  `protobuf:"varint,1,opt,name=last_delay" json:"last_delay,omitempty"`
+	// 　上次心跳时间
+	LastDelay *int32 `protobuf:"varint,1,opt,name=last_delay" json:"last_delay,omitempty"`
+	// 　扩展字段
 	Extra            *string `protobuf:"bytes,2,opt,name=extra" json:"extra,omitempty"`
 	XXX_unrecognized []byte  `json:"-"`
 }
@@ -173,8 +197,11 @@ func (m *Heartbeat) GetExtra() string {
 	return ""
 }
 
+// 101: 心跳响应
 type HeartbeatResponse struct {
-	NextHeartbeat    *int32  `protobuf:"varint,1,opt,name=next_heartbeat" json:"next_heartbeat,omitempty"`
+	// 返回下一次心跳时间
+	NextHeartbeat *int32 `protobuf:"varint,1,opt,name=next_heartbeat" json:"next_heartbeat,omitempty"`
+	// 扩展字段
 	Extra            *string `protobuf:"bytes,2,opt,name=extra" json:"extra,omitempty"`
 	XXX_unrecognized []byte  `json:"-"`
 }
@@ -197,11 +224,17 @@ func (m *HeartbeatResponse) GetExtra() string {
 	return ""
 }
 
+// 2: 用户登录
 type UserLogin struct {
-	UserId           *string `protobuf:"bytes,1,req,name=user_id" json:"user_id,omitempty"`
-	Channel          *string `protobuf:"bytes,2,opt,name=channel" json:"channel,omitempty"`
-	Version          *string `protobuf:"bytes,3,opt,name=version" json:"version,omitempty"`
-	Token            *string `protobuf:"bytes,4,opt,name=token" json:"token,omitempty"`
+	// 用户id
+	UserId *string `protobuf:"bytes,1,req,name=user_id" json:"user_id,omitempty"`
+	// Channel
+	Channel *string `protobuf:"bytes,2,opt,name=channel" json:"channel,omitempty"`
+	// 版本
+	Version *string `protobuf:"bytes,3,opt,name=version" json:"version,omitempty"`
+	// token
+	Token *string `protobuf:"bytes,4,opt,name=token" json:"token,omitempty"`
+	// 扩展字段
 	Extra            *string `protobuf:"bytes,5,opt,name=extra" json:"extra,omitempty"`
 	XXX_unrecognized []byte  `json:"-"`
 }
@@ -245,8 +278,11 @@ func (m *UserLogin) GetExtra() string {
 	return ""
 }
 
+// 102: 用户登录响应
 type UserLoginResponse struct {
-	Status           *bool   `protobuf:"varint,1,req,name=status" json:"status,omitempty"`
+	// 用户登录是否成功
+	Status *bool `protobuf:"varint,1,req,name=status" json:"status,omitempty"`
+	// 扩展字段
 	Extra            *string `protobuf:"bytes,2,opt,name=extra" json:"extra,omitempty"`
 	XXX_unrecognized []byte  `json:"-"`
 }
@@ -269,8 +305,11 @@ func (m *UserLoginResponse) GetExtra() string {
 	return ""
 }
 
+// 3: 用户登出
 type UserLogout struct {
-	UserId           *string `protobuf:"bytes,1,req,name=user_id" json:"user_id,omitempty"`
+	// 用户id
+	UserId *string `protobuf:"bytes,1,req,name=user_id" json:"user_id,omitempty"`
+	// 扩展字段
 	Extra            *string `protobuf:"bytes,2,opt,name=extra" json:"extra,omitempty"`
 	XXX_unrecognized []byte  `json:"-"`
 }
@@ -293,8 +332,11 @@ func (m *UserLogout) GetExtra() string {
 	return ""
 }
 
+// 103: 用户登出返回
 type UserLogoutResponse struct {
-	Status           *bool   `protobuf:"varint,1,req,name=status" json:"status,omitempty"`
+	// 用户是否成功退出
+	Status *bool `protobuf:"varint,1,req,name=status" json:"status,omitempty"`
+	// 扩展字段
 	Extra            *string `protobuf:"bytes,2,opt,name=extra" json:"extra,omitempty"`
 	XXX_unrecognized []byte  `json:"-"`
 }
@@ -317,12 +359,19 @@ func (m *UserLogoutResponse) GetExtra() string {
 	return ""
 }
 
+// 4, 200: 消息, 消息响应
 type Message struct {
-	MessageId        *string `protobuf:"bytes,1,req,name=message_id" json:"message_id,omitempty"`
-	Sender           *string `protobuf:"bytes,2,req,name=sender" json:"sender,omitempty"`
-	Receiver         *string `protobuf:"bytes,3,req,name=receiver" json:"receiver,omitempty"`
-	MessageBody      *string `protobuf:"bytes,4,req,name=message_body" json:"message_body,omitempty"`
-	Date             *int64  `protobuf:"varint,5,opt,name=date" json:"date,omitempty"`
+	// 客户端生成消息id
+	MessageId *string `protobuf:"bytes,1,req,name=message_id" json:"message_id,omitempty"`
+	// 发送者
+	Sender *string `protobuf:"bytes,2,req,name=sender" json:"sender,omitempty"`
+	// 接收者
+	Receiver *string `protobuf:"bytes,3,req,name=receiver" json:"receiver,omitempty"`
+	// 消息体
+	MessageBody *string `protobuf:"bytes,4,req,name=message_body" json:"message_body,omitempty"`
+	// 收发消息时间
+	Date *int64 `protobuf:"varint,5,opt,name=date" json:"date,omitempty"`
+	// 扩展字段
 	Extra            *string `protobuf:"bytes,6,opt,name=extra" json:"extra,omitempty"`
 	XXX_unrecognized []byte  `json:"-"`
 }
@@ -373,9 +422,13 @@ func (m *Message) GetExtra() string {
 	return ""
 }
 
+// 104: 消息响应
 type MessageResponse struct {
-	MessageId        *string `protobuf:"bytes,1,req,name=message_id" json:"message_id,omitempty"`
-	Status           *bool   `protobuf:"varint,2,req,name=status" json:"status,omitempty"`
+	// 客户端生产消息id
+	MessageId *string `protobuf:"bytes,1,req,name=message_id" json:"message_id,omitempty"`
+	// 状态
+	Status *bool `protobuf:"varint,2,req,name=status" json:"status,omitempty"`
+	// 扩展字段
 	Extra            *string `protobuf:"bytes,3,opt,name=extra" json:"extra,omitempty"`
 	XXX_unrecognized []byte  `json:"-"`
 }
@@ -405,9 +458,13 @@ func (m *MessageResponse) GetExtra() string {
 	return ""
 }
 
+// 5: 接收到消息后向服务器发确认
 type ReceiveMessageAck struct {
-	MessageId        *string `protobuf:"bytes,1,req,name=message_id" json:"message_id,omitempty"`
-	Status           *int32  `protobuf:"varint,2,req,name=status" json:"status,omitempty"`
+	// 消息id
+	MessageId *string `protobuf:"bytes,1,req,name=message_id" json:"message_id,omitempty"`
+	// 消息状态　0：正在下发中；1：已经下发push但未查看；2：收到push并已经查看
+	Status *int32 `protobuf:"varint,2,req,name=status" json:"status,omitempty"`
+	// 扩展字段
 	Extra            *string `protobuf:"bytes,3,opt,name=extra" json:"extra,omitempty"`
 	XXX_unrecognized []byte  `json:"-"`
 }
@@ -437,12 +494,19 @@ func (m *ReceiveMessageAck) GetExtra() string {
 	return ""
 }
 
+// 201: 通用PUSH
 type NormalMessage struct {
-	MessageId        *string `protobuf:"bytes,1,req,name=message_id" json:"message_id,omitempty"`
-	Receiver         *string `protobuf:"bytes,2,req,name=receiver" json:"receiver,omitempty"`
-	Content          []byte  `protobuf:"bytes,3,req,name=content" json:"content,omitempty"`
-	Date             *int64  `protobuf:"varint,4,req,name=date" json:"date,omitempty"`
-	Expire           *int32  `protobuf:"varint,5,opt,name=expire" json:"expire,omitempty"`
+	// 消息id
+	MessageId *string `protobuf:"bytes,1,req,name=message_id" json:"message_id,omitempty"`
+	// 收件人
+	Receiver *string `protobuf:"bytes,2,req,name=receiver" json:"receiver,omitempty"`
+	// 内容， 最长1024字节
+	Content []byte `protobuf:"bytes,3,req,name=content" json:"content,omitempty"`
+	// 消息生成的时间和日期， 默认为东八区
+	Date *int64 `protobuf:"varint,4,req,name=date" json:"date,omitempty"`
+	// 过期时间,单位：s
+	Expire *int32 `protobuf:"varint,5,opt,name=expire" json:"expire,omitempty"`
+	// 客户端收到消息确认
 	Extra            *string `protobuf:"bytes,6,opt,name=extra" json:"extra,omitempty"`
 	XXX_unrecognized []byte  `json:"-"`
 }
@@ -493,9 +557,13 @@ func (m *NormalMessage) GetExtra() string {
 	return ""
 }
 
+// 6: 单条NORMAL消息ack
 type NormalMessageAck struct {
-	MessageId        *string `protobuf:"bytes,1,req,name=message_id" json:"message_id,omitempty"`
-	Status           *int32  `protobuf:"varint,2,req,name=status" json:"status,omitempty"`
+	// 消息id
+	MessageId *string `protobuf:"bytes,1,req,name=message_id" json:"message_id,omitempty"`
+	// 消息状态　0：正在下发中；1：已经下发push但未查看；2：收到push并已经查看
+	Status *int32 `protobuf:"varint,2,req,name=status" json:"status,omitempty"`
+	// 扩展字段
 	Extra            *string `protobuf:"bytes,3,opt,name=extra" json:"extra,omitempty"`
 	XXX_unrecognized []byte  `json:"-"`
 }
