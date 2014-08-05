@@ -8,12 +8,12 @@ import (
 	"github.com/gysan/chatroom/handlers"
 	"github.com/gysan/chatroom/packet"
 	"github.com/gysan/chatroom/utils/convert"
-	"log"
 	"net"
 	"os"
 	"time"
 	"github.com/gysan/chatroom/common"
 	"github.com/golang/glog"
+	"strconv"
 )
 
 var (
@@ -133,7 +133,7 @@ func sendMessage(conn *net.TCPConn, sender string, receiver string) {
 		message := &common.Message{
 			Sender: proto.String(sender),
 			Receiver: proto.String(receiver),
-			MessageId: proto.String(sender + "_" + receiver + "_" + string(tag)),
+			MessageId: proto.String(sender + "_" + receiver + "_" + strconv.Itoa(int(time.Now().Unix()))),
 			MessageBody: proto.String("{\"type\":\"1\", \"text\":\"Hello world\"}"),
 		}
 		glog.Infof("Message: %v", message)
@@ -150,7 +150,7 @@ func testBB(sender string) {
 	tcpAddr, _ := net.ResolveTCPAddr("tcp4", config.Addr)
 	conn, err := net.DialTCP("tcp", nil, tcpAddr)
 	if err != nil {
-		log.Printf("%v DialTCP失败: %v\r\n", sender, err)
+		glog.Infof("%v DialTCP error: %v", sender, err)
 		return
 	}
 	defer conn.Close()
@@ -254,20 +254,8 @@ func init() {
 	flag.StringVar(&receiver, "receiver", "2", "对方的uuid")
 	flag.Parse()
 	// 读取配置文件
-	err := config.ReadIniFile("../config.ini")
+	err := config.ReadIniFile("config.ini")
 	if err != nil {
-		log.Fatal(err, "\r\n")
+		glog.Fatalf("Error: %v", err)
 	}
-	// setLogOutput("./log.txt")
-}
-
-func setLogOutput(filepath string) {
-	// 为log添加短文件名，方便查看行数
-	log.SetFlags(log.Lshortfile | log.LstdFlags)
-	logfile, err := os.OpenFile(filepath, os.O_RDWR|os.O_CREATE|os.O_APPEND, os.ModePerm)
-	// 注意不要关闭logfile
-	if err != nil {
-		log.Printf("%v\r\n", err)
-	}
-	log.SetOutput(logfile)
 }

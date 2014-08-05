@@ -33,7 +33,7 @@ func ReadIniFile(inifile string) error {
 	ReadTimeout, _ = conf.Int("service", "read_timeout")
 	WriteTimeout, _ = conf.Int("service", "write_timeout")
 
-	Source, _ = conf.String("mysql", "source")
+	Source, _ = conf.String("marry_me", "source")
 
 	UuidDB, _ = conf.String("data", "uuid_db")
 	OfflineMsgidsDB, _ = conf.String("data", "offline_msgids_db")

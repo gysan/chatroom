@@ -143,7 +143,7 @@ func (this *Server) handleClientConn(conn *net.TCPConn) {
 	glog.Infof("HandleClient: %v", addr)
 
 	for {
-		glog.Info("for...")
+		glog.Info("for...==================================================================================")
 
 		select {
 		case <-this.exitCh:

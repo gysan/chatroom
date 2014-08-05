@@ -159,33 +159,18 @@ func HandleUserLogin(conn *net.TCPConn, receivePacket *packet.Packet) {
 
 	glog.Info("Offline message sending...")
 
-	// 检查是否有该userId的离线消息存在，若有，则发送其离线消息
-	//	if dao.OfflineMsgCheck(userId) {
-	//		// 这里比较复杂，后续再优化(可以多个离线消息一起发送)
-	//		// 得到所有离线消息的id
-	//		msgids := dao.OfflineMsgGetIds(userId)
-	//		glog.Infof("%v has %v offline", userId, len(msgids))
-	//		var (
-	//			k   int
-	//			err error
-	//		)
-	//		for k, _ = range msgids {
-	//			if err = SendByteStream(conn, []byte(dao.IdMsgGetMsgFromId(msgids[k]))); err != nil {
-	//				break
-	//			}
-	//			// fmt.Println("正在发送离线消息", k, err, dao.IdMsgGetMsgFromId(msgids[k]))
-	//		}
-	//
-	//		if err != nil {
-	//			if k != 0 {
-	//				dao.OfflineMsgDeleteIds(userId, msgids[k-1])
-	//			}
-	//		} else {
-	//			dao.OfflineMsgDeleteIds(userId, msgids[k])
-	//		}
-	//	} else {
-	//		// fmt.Println("没有离线消息")
-	//	}
+	messages, err := dao.FindOfflineMessages(userId)
+	glog.Infof("%v, %v", messages, err)
+
+	v := &common.Message{}
+	for _, v = range messages {
+		pac, err := packet.Pack(receivePacket.Tag+1, uint32(common.MessageCommand_RECEIVE_MESSAGE), v)
+		if err != nil {
+			glog.Errorf("Packet: %v", err)
+			return
+		}
+		SendByteStream(conn, pac.GetBytes())
+	}
 	glog.Info("Offline message sent.")
 }
 
@@ -213,6 +198,7 @@ func HandleMessage(conn *net.TCPConn, receivePacket *packet.Packet) {
 	glog.Info("HandleMessage beginning...")
 	message := &common.Message{}
 	packet.Unpack(receivePacket, message)
+	dao.InsertMessage(message)
 	glog.Infof("Message: %v string: %s", receivePacket, message.String())
 	glog.Info("HandleMessage end.")
 
@@ -257,6 +243,7 @@ func HandleReceiveMessageAck(conn *net.TCPConn, receivePacket *packet.Packet) {
 	glog.Info("HandleReceiveMessageAck beginning...")
 	receiveMessageAck := &common.ReceiveMessageAck{}
 	packet.Unpack(receivePacket, receiveMessageAck)
+	dao.UpdateStatus(ConnMapUser.Get(conn), receiveMessageAck.GetMessageId(), int(receiveMessageAck.GetStatus()))
 	glog.Info("HandleReceiveMessageAck end.")
 }
 
