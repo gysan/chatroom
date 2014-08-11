@@ -30,9 +30,9 @@ func GetMessageDb() *sql.DB {
 func FindOfflineMessages(userId string) ([]*common.Message, error) {
 	userIdInt, _ := strconv.Atoi(userId)
 	glog.Infof("Find offline messages: %v", userIdInt%16)
-	rows, err := GetMessageDb().Query("select id, sender, receiver, body from marry_me_message_"+strconv.Itoa(userIdInt%16)+" where sender = ? and status = 0", userId)
+	rows, err := GetMessageDb().Query("select id, sender, receiver, body from marry_me_message_"+strconv.Itoa(userIdInt%16)+" where sender = ? and status = 0 order by ctime asc", userId)
 	if err != nil {
-		glog.Errorf("db.Query(\"%s\") failed (%v)", "select id, sender, receiver, body from marry_me_message_"+strconv.Itoa(userIdInt%16)+" where sender = ? and status = 0", err)
+		glog.Errorf("db.Query(\"%s\") failed (%v)", "select id, sender, receiver, body from marry_me_message_"+strconv.Itoa(userIdInt%16)+" where sender = ? and status = 0 order by ctime asc", err)
 		return nil, err
 	}
 	var id, sender, receiver, body string
