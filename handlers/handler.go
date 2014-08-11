@@ -11,6 +11,7 @@ import (
 	"time"
 	"github.com/golang/glog"
 	"github.com/gysan/chatroom/common"
+	"strconv"
 )
 
 var (
@@ -36,7 +37,8 @@ func CloseConn(conn *net.TCPConn) {
 	ConnMapUser.Delete(conn)
 	glog.Infof("Conn device map size: %v, Values: %v", ConnMapUser.Size(), ConnMapUser.Items())
 	if userId != nil {
-		dao.UuidOffLine(userId.(string))
+		userIdInt, _ := strconv.Atoi(userId.(string))
+		dao.UpdateOnline(userIdInt, 0)
 	}
 	glog.Info("Close connection.")
 }
@@ -50,7 +52,8 @@ func InitConn(conn *net.TCPConn, userId string) {
 	glog.Infof("Device conn map size: %v, Values: %v", UserMapConn.Size(), UserMapConn.Items())
 	ConnMapUser.Set(conn, userId)
 	glog.Infof("Conn device map size: %v, Values: %v", ConnMapUser.Size(), ConnMapUser.Items())
-	dao.UuidOnLine(userId)
+	userIdInt, _ := strconv.Atoi(userId)
+	dao.UpdateOnline(userIdInt, 1)
 	glog.Info("Init connection.")
 }
 
