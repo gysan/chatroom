@@ -70,14 +70,16 @@ message HeartbeatResponse {
 message UserLogin {
     // 用户id
     required string user_id = 1;
+    // 应用id
+    optional int32 app_id = 2;
     // Channel
-    optional string channel = 2;
+    optional string channel = 3;
     // 版本
-    optional string version = 3;
+    optional string version = 4;
     // token
-    optional string token = 4;
+    optional string token = 5;
     // 扩展字段
-    optional string extra = 5;
+    optional string extra = 6;
 }
 
 // 102: 用户登录响应

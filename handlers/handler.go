@@ -163,7 +163,6 @@ func HandleUserLogin(conn *net.TCPConn, receivePacket *packet.Packet) {
 	glog.Info("UserLoginResponse end.")
 
 	glog.Info("Offline message sending...")
-
 	messages, err := dao.FindOfflineMessages(userId)
 	glog.Infof("%v, %v", messages, err)
 
@@ -177,6 +176,21 @@ func HandleUserLogin(conn *net.TCPConn, receivePacket *packet.Packet) {
 		SendByteStream(conn, pac.GetBytes())
 	}
 	glog.Info("Offline message sent.")
+
+	glog.Info("Offline normal message sending...")
+	normalMessages, err := dao.FindOfflineNormalMessages(userId)
+	glog.Infof("%v, %v", normalMessages, err)
+
+	normalMessage := &common.NormalMessage{}
+	for _, normalMessage = range normalMessages {
+		pac, err := packet.Pack(receivePacket.Tag+1, uint32(common.MessageCommand_NORMARL_MESSAGE), normalMessage)
+		if err != nil {
+			glog.Errorf("Packet: %v", err)
+			return
+		}
+		SendByteStream(conn, pac.GetBytes())
+	}
+	glog.Info("Offline normal message sent.")
 }
 
 func HandleUserLogout(conn *net.TCPConn, receivePacket *packet.Packet) {
@@ -248,7 +262,7 @@ func HandleReceiveMessageAck(conn *net.TCPConn, receivePacket *packet.Packet) {
 	glog.Info("HandleReceiveMessageAck beginning...")
 	receiveMessageAck := &common.ReceiveMessageAck{}
 	packet.Unpack(receivePacket, receiveMessageAck)
-	dao.UpdateStatus(ConnMapUser.Get(conn), receiveMessageAck.GetMessageId(), int(receiveMessageAck.GetStatus()))
+	dao.UpdateMessageStatus(ConnMapUser.Get(conn), receiveMessageAck.GetMessageId(), int(receiveMessageAck.GetStatus()))
 	glog.Info("HandleReceiveMessageAck end.")
 }
 
@@ -256,5 +270,6 @@ func HandleNormalMessageAck(conn *net.TCPConn, receivePacket *packet.Packet) {
 	glog.Info("HandleNormalMessageAck beginning...")
 	normalMessageAck := &common.NormalMessageAck{}
 	packet.Unpack(receivePacket, normalMessageAck)
+	dao.UpdateNormalMessageStatus(ConnMapUser.Get(conn), normalMessageAck.GetMessageId(), int(normalMessageAck.GetStatus()))
 	glog.Info("HandleNormalMessageAck end.")
 }

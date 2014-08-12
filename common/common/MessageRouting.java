@@ -2912,9 +2912,27 @@ public final class MessageRouting {
     com.google.protobuf.ByteString
         getUserIdBytes();
 
-    // optional string channel = 2;
+    // optional int32 app_id = 2;
     /**
-     * <code>optional string channel = 2;</code>
+     * <code>optional int32 app_id = 2;</code>
+     *
+     * <pre>
+     * 应用id
+     * </pre>
+     */
+    boolean hasAppId();
+    /**
+     * <code>optional int32 app_id = 2;</code>
+     *
+     * <pre>
+     * 应用id
+     * </pre>
+     */
+    int getAppId();
+
+    // optional string channel = 3;
+    /**
+     * <code>optional string channel = 3;</code>
      *
      * <pre>
      * Channel
@@ -2922,7 +2940,7 @@ public final class MessageRouting {
      */
     boolean hasChannel();
     /**
-     * <code>optional string channel = 2;</code>
+     * <code>optional string channel = 3;</code>
      *
      * <pre>
      * Channel
@@ -2930,7 +2948,7 @@ public final class MessageRouting {
      */
     java.lang.String getChannel();
     /**
-     * <code>optional string channel = 2;</code>
+     * <code>optional string channel = 3;</code>
      *
      * <pre>
      * Channel
@@ -2939,9 +2957,9 @@ public final class MessageRouting {
     com.google.protobuf.ByteString
         getChannelBytes();
 
-    // optional string version = 3;
+    // optional string version = 4;
     /**
-     * <code>optional string version = 3;</code>
+     * <code>optional string version = 4;</code>
      *
      * <pre>
      * 版本
@@ -2949,7 +2967,7 @@ public final class MessageRouting {
      */
     boolean hasVersion();
     /**
-     * <code>optional string version = 3;</code>
+     * <code>optional string version = 4;</code>
      *
      * <pre>
      * 版本
@@ -2957,7 +2975,7 @@ public final class MessageRouting {
      */
     java.lang.String getVersion();
     /**
-     * <code>optional string version = 3;</code>
+     * <code>optional string version = 4;</code>
      *
      * <pre>
      * 版本
@@ -2966,9 +2984,9 @@ public final class MessageRouting {
     com.google.protobuf.ByteString
         getVersionBytes();
 
-    // optional string token = 4;
+    // optional string token = 5;
     /**
-     * <code>optional string token = 4;</code>
+     * <code>optional string token = 5;</code>
      *
      * <pre>
      * token
@@ -2976,7 +2994,7 @@ public final class MessageRouting {
      */
     boolean hasToken();
     /**
-     * <code>optional string token = 4;</code>
+     * <code>optional string token = 5;</code>
      *
      * <pre>
      * token
@@ -2984,7 +3002,7 @@ public final class MessageRouting {
      */
     java.lang.String getToken();
     /**
-     * <code>optional string token = 4;</code>
+     * <code>optional string token = 5;</code>
      *
      * <pre>
      * token
@@ -2993,9 +3011,9 @@ public final class MessageRouting {
     com.google.protobuf.ByteString
         getTokenBytes();
 
-    // optional string extra = 5;
+    // optional string extra = 6;
     /**
-     * <code>optional string extra = 5;</code>
+     * <code>optional string extra = 6;</code>
      *
      * <pre>
      * 扩展字段
@@ -3003,7 +3021,7 @@ public final class MessageRouting {
      */
     boolean hasExtra();
     /**
-     * <code>optional string extra = 5;</code>
+     * <code>optional string extra = 6;</code>
      *
      * <pre>
      * 扩展字段
@@ -3011,7 +3029,7 @@ public final class MessageRouting {
      */
     java.lang.String getExtra();
     /**
-     * <code>optional string extra = 5;</code>
+     * <code>optional string extra = 6;</code>
      *
      * <pre>
      * 扩展字段
@@ -3080,23 +3098,28 @@ public final class MessageRouting {
               userId_ = input.readBytes();
               break;
             }
-            case 18: {
+            case 16: {
               bitField0_ |= 0x00000002;
-              channel_ = input.readBytes();
+              appId_ = input.readInt32();
               break;
             }
             case 26: {
               bitField0_ |= 0x00000004;
-              version_ = input.readBytes();
+              channel_ = input.readBytes();
               break;
             }
             case 34: {
               bitField0_ |= 0x00000008;
-              token_ = input.readBytes();
+              version_ = input.readBytes();
               break;
             }
             case 42: {
               bitField0_ |= 0x00000010;
+              token_ = input.readBytes();
+              break;
+            }
+            case 50: {
+              bitField0_ |= 0x00000020;
               extra_ = input.readBytes();
               break;
             }
@@ -3195,21 +3218,45 @@ public final class MessageRouting {
       }
     }
 
-    // optional string channel = 2;
-    public static final int CHANNEL_FIELD_NUMBER = 2;
+    // optional int32 app_id = 2;
+    public static final int APP_ID_FIELD_NUMBER = 2;
+    private int appId_;
+    /**
+     * <code>optional int32 app_id = 2;</code>
+     *
+     * <pre>
+     * 应用id
+     * </pre>
+     */
+    public boolean hasAppId() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    /**
+     * <code>optional int32 app_id = 2;</code>
+     *
+     * <pre>
+     * 应用id
+     * </pre>
+     */
+    public int getAppId() {
+      return appId_;
+    }
+
+    // optional string channel = 3;
+    public static final int CHANNEL_FIELD_NUMBER = 3;
     private java.lang.Object channel_;
     /**
-     * <code>optional string channel = 2;</code>
+     * <code>optional string channel = 3;</code>
      *
      * <pre>
      * Channel
      * </pre>
      */
     public boolean hasChannel() {
-      return ((bitField0_ & 0x00000002) == 0x00000002);
+      return ((bitField0_ & 0x00000004) == 0x00000004);
     }
     /**
-     * <code>optional string channel = 2;</code>
+     * <code>optional string channel = 3;</code>
      *
      * <pre>
      * Channel
@@ -3230,7 +3277,7 @@ public final class MessageRouting {
       }
     }
     /**
-     * <code>optional string channel = 2;</code>
+     * <code>optional string channel = 3;</code>
      *
      * <pre>
      * Channel
@@ -3250,21 +3297,21 @@ public final class MessageRouting {
       }
     }
 
-    // optional string version = 3;
-    public static final int VERSION_FIELD_NUMBER = 3;
+    // optional string version = 4;
+    public static final int VERSION_FIELD_NUMBER = 4;
     private java.lang.Object version_;
     /**
-     * <code>optional string version = 3;</code>
+     * <code>optional string version = 4;</code>
      *
      * <pre>
      * 版本
      * </pre>
      */
     public boolean hasVersion() {
-      return ((bitField0_ & 0x00000004) == 0x00000004);
+      return ((bitField0_ & 0x00000008) == 0x00000008);
     }
     /**
-     * <code>optional string version = 3;</code>
+     * <code>optional string version = 4;</code>
      *
      * <pre>
      * 版本
@@ -3285,7 +3332,7 @@ public final class MessageRouting {
       }
     }
     /**
-     * <code>optional string version = 3;</code>
+     * <code>optional string version = 4;</code>
      *
      * <pre>
      * 版本
@@ -3305,21 +3352,21 @@ public final class MessageRouting {
       }
     }
 
-    // optional string token = 4;
-    public static final int TOKEN_FIELD_NUMBER = 4;
+    // optional string token = 5;
+    public static final int TOKEN_FIELD_NUMBER = 5;
     private java.lang.Object token_;
     /**
-     * <code>optional string token = 4;</code>
+     * <code>optional string token = 5;</code>
      *
      * <pre>
      * token
      * </pre>
      */
     public boolean hasToken() {
-      return ((bitField0_ & 0x00000008) == 0x00000008);
+      return ((bitField0_ & 0x00000010) == 0x00000010);
     }
     /**
-     * <code>optional string token = 4;</code>
+     * <code>optional string token = 5;</code>
      *
      * <pre>
      * token
@@ -3340,7 +3387,7 @@ public final class MessageRouting {
       }
     }
     /**
-     * <code>optional string token = 4;</code>
+     * <code>optional string token = 5;</code>
      *
      * <pre>
      * token
@@ -3360,21 +3407,21 @@ public final class MessageRouting {
       }
     }
 
-    // optional string extra = 5;
-    public static final int EXTRA_FIELD_NUMBER = 5;
+    // optional string extra = 6;
+    public static final int EXTRA_FIELD_NUMBER = 6;
     private java.lang.Object extra_;
     /**
-     * <code>optional string extra = 5;</code>
+     * <code>optional string extra = 6;</code>
      *
      * <pre>
      * 扩展字段
      * </pre>
      */
     public boolean hasExtra() {
-      return ((bitField0_ & 0x00000010) == 0x00000010);
+      return ((bitField0_ & 0x00000020) == 0x00000020);
     }
     /**
-     * <code>optional string extra = 5;</code>
+     * <code>optional string extra = 6;</code>
      *
      * <pre>
      * 扩展字段
@@ -3395,7 +3442,7 @@ public final class MessageRouting {
       }
     }
     /**
-     * <code>optional string extra = 5;</code>
+     * <code>optional string extra = 6;</code>
      *
      * <pre>
      * 扩展字段
@@ -3417,6 +3464,7 @@ public final class MessageRouting {
 
     private void initFields() {
       userId_ = "";
+      appId_ = 0;
       channel_ = "";
       version_ = "";
       token_ = "";
@@ -3442,16 +3490,19 @@ public final class MessageRouting {
         output.writeBytes(1, getUserIdBytes());
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        output.writeBytes(2, getChannelBytes());
+        output.writeInt32(2, appId_);
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
-        output.writeBytes(3, getVersionBytes());
+        output.writeBytes(3, getChannelBytes());
       }
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
-        output.writeBytes(4, getTokenBytes());
+        output.writeBytes(4, getVersionBytes());
       }
       if (((bitField0_ & 0x00000010) == 0x00000010)) {
-        output.writeBytes(5, getExtraBytes());
+        output.writeBytes(5, getTokenBytes());
+      }
+      if (((bitField0_ & 0x00000020) == 0x00000020)) {
+        output.writeBytes(6, getExtraBytes());
       }
       getUnknownFields().writeTo(output);
     }
@@ -3468,19 +3519,23 @@ public final class MessageRouting {
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(2, getChannelBytes());
+          .computeInt32Size(2, appId_);
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(3, getVersionBytes());
+          .computeBytesSize(3, getChannelBytes());
       }
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(4, getTokenBytes());
+          .computeBytesSize(4, getVersionBytes());
       }
       if (((bitField0_ & 0x00000010) == 0x00000010)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(5, getExtraBytes());
+          .computeBytesSize(5, getTokenBytes());
+      }
+      if (((bitField0_ & 0x00000020) == 0x00000020)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(6, getExtraBytes());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -3604,14 +3659,16 @@ public final class MessageRouting {
         super.clear();
         userId_ = "";
         bitField0_ = (bitField0_ & ~0x00000001);
-        channel_ = "";
+        appId_ = 0;
         bitField0_ = (bitField0_ & ~0x00000002);
-        version_ = "";
+        channel_ = "";
         bitField0_ = (bitField0_ & ~0x00000004);
-        token_ = "";
+        version_ = "";
         bitField0_ = (bitField0_ & ~0x00000008);
-        extra_ = "";
+        token_ = "";
         bitField0_ = (bitField0_ & ~0x00000010);
+        extra_ = "";
+        bitField0_ = (bitField0_ & ~0x00000020);
         return this;
       }
 
@@ -3647,17 +3704,21 @@ public final class MessageRouting {
         if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
           to_bitField0_ |= 0x00000002;
         }
-        result.channel_ = channel_;
+        result.appId_ = appId_;
         if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
           to_bitField0_ |= 0x00000004;
         }
-        result.version_ = version_;
+        result.channel_ = channel_;
         if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
           to_bitField0_ |= 0x00000008;
         }
-        result.token_ = token_;
+        result.version_ = version_;
         if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
           to_bitField0_ |= 0x00000010;
+        }
+        result.token_ = token_;
+        if (((from_bitField0_ & 0x00000020) == 0x00000020)) {
+          to_bitField0_ |= 0x00000020;
         }
         result.extra_ = extra_;
         result.bitField0_ = to_bitField0_;
@@ -3681,23 +3742,26 @@ public final class MessageRouting {
           userId_ = other.userId_;
           onChanged();
         }
+        if (other.hasAppId()) {
+          setAppId(other.getAppId());
+        }
         if (other.hasChannel()) {
-          bitField0_ |= 0x00000002;
+          bitField0_ |= 0x00000004;
           channel_ = other.channel_;
           onChanged();
         }
         if (other.hasVersion()) {
-          bitField0_ |= 0x00000004;
+          bitField0_ |= 0x00000008;
           version_ = other.version_;
           onChanged();
         }
         if (other.hasToken()) {
-          bitField0_ |= 0x00000008;
+          bitField0_ |= 0x00000010;
           token_ = other.token_;
           onChanged();
         }
         if (other.hasExtra()) {
-          bitField0_ |= 0x00000010;
+          bitField0_ |= 0x00000020;
           extra_ = other.extra_;
           onChanged();
         }
@@ -3830,20 +3894,69 @@ public final class MessageRouting {
         return this;
       }
 
-      // optional string channel = 2;
+      // optional int32 app_id = 2;
+      private int appId_ ;
+      /**
+       * <code>optional int32 app_id = 2;</code>
+       *
+       * <pre>
+       * 应用id
+       * </pre>
+       */
+      public boolean hasAppId() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <code>optional int32 app_id = 2;</code>
+       *
+       * <pre>
+       * 应用id
+       * </pre>
+       */
+      public int getAppId() {
+        return appId_;
+      }
+      /**
+       * <code>optional int32 app_id = 2;</code>
+       *
+       * <pre>
+       * 应用id
+       * </pre>
+       */
+      public Builder setAppId(int value) {
+        bitField0_ |= 0x00000002;
+        appId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional int32 app_id = 2;</code>
+       *
+       * <pre>
+       * 应用id
+       * </pre>
+       */
+      public Builder clearAppId() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        appId_ = 0;
+        onChanged();
+        return this;
+      }
+
+      // optional string channel = 3;
       private java.lang.Object channel_ = "";
       /**
-       * <code>optional string channel = 2;</code>
+       * <code>optional string channel = 3;</code>
        *
        * <pre>
        * Channel
        * </pre>
        */
       public boolean hasChannel() {
-        return ((bitField0_ & 0x00000002) == 0x00000002);
+        return ((bitField0_ & 0x00000004) == 0x00000004);
       }
       /**
-       * <code>optional string channel = 2;</code>
+       * <code>optional string channel = 3;</code>
        *
        * <pre>
        * Channel
@@ -3861,7 +3974,7 @@ public final class MessageRouting {
         }
       }
       /**
-       * <code>optional string channel = 2;</code>
+       * <code>optional string channel = 3;</code>
        *
        * <pre>
        * Channel
@@ -3881,7 +3994,7 @@ public final class MessageRouting {
         }
       }
       /**
-       * <code>optional string channel = 2;</code>
+       * <code>optional string channel = 3;</code>
        *
        * <pre>
        * Channel
@@ -3892,26 +4005,26 @@ public final class MessageRouting {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000002;
+  bitField0_ |= 0x00000004;
         channel_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional string channel = 2;</code>
+       * <code>optional string channel = 3;</code>
        *
        * <pre>
        * Channel
        * </pre>
        */
       public Builder clearChannel() {
-        bitField0_ = (bitField0_ & ~0x00000002);
+        bitField0_ = (bitField0_ & ~0x00000004);
         channel_ = getDefaultInstance().getChannel();
         onChanged();
         return this;
       }
       /**
-       * <code>optional string channel = 2;</code>
+       * <code>optional string channel = 3;</code>
        *
        * <pre>
        * Channel
@@ -3922,26 +4035,26 @@ public final class MessageRouting {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000002;
+  bitField0_ |= 0x00000004;
         channel_ = value;
         onChanged();
         return this;
       }
 
-      // optional string version = 3;
+      // optional string version = 4;
       private java.lang.Object version_ = "";
       /**
-       * <code>optional string version = 3;</code>
+       * <code>optional string version = 4;</code>
        *
        * <pre>
        * 版本
        * </pre>
        */
       public boolean hasVersion() {
-        return ((bitField0_ & 0x00000004) == 0x00000004);
+        return ((bitField0_ & 0x00000008) == 0x00000008);
       }
       /**
-       * <code>optional string version = 3;</code>
+       * <code>optional string version = 4;</code>
        *
        * <pre>
        * 版本
@@ -3959,7 +4072,7 @@ public final class MessageRouting {
         }
       }
       /**
-       * <code>optional string version = 3;</code>
+       * <code>optional string version = 4;</code>
        *
        * <pre>
        * 版本
@@ -3979,7 +4092,7 @@ public final class MessageRouting {
         }
       }
       /**
-       * <code>optional string version = 3;</code>
+       * <code>optional string version = 4;</code>
        *
        * <pre>
        * 版本
@@ -3990,26 +4103,26 @@ public final class MessageRouting {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000004;
+  bitField0_ |= 0x00000008;
         version_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional string version = 3;</code>
+       * <code>optional string version = 4;</code>
        *
        * <pre>
        * 版本
        * </pre>
        */
       public Builder clearVersion() {
-        bitField0_ = (bitField0_ & ~0x00000004);
+        bitField0_ = (bitField0_ & ~0x00000008);
         version_ = getDefaultInstance().getVersion();
         onChanged();
         return this;
       }
       /**
-       * <code>optional string version = 3;</code>
+       * <code>optional string version = 4;</code>
        *
        * <pre>
        * 版本
@@ -4020,26 +4133,26 @@ public final class MessageRouting {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000004;
+  bitField0_ |= 0x00000008;
         version_ = value;
         onChanged();
         return this;
       }
 
-      // optional string token = 4;
+      // optional string token = 5;
       private java.lang.Object token_ = "";
       /**
-       * <code>optional string token = 4;</code>
+       * <code>optional string token = 5;</code>
        *
        * <pre>
        * token
        * </pre>
        */
       public boolean hasToken() {
-        return ((bitField0_ & 0x00000008) == 0x00000008);
+        return ((bitField0_ & 0x00000010) == 0x00000010);
       }
       /**
-       * <code>optional string token = 4;</code>
+       * <code>optional string token = 5;</code>
        *
        * <pre>
        * token
@@ -4057,7 +4170,7 @@ public final class MessageRouting {
         }
       }
       /**
-       * <code>optional string token = 4;</code>
+       * <code>optional string token = 5;</code>
        *
        * <pre>
        * token
@@ -4077,7 +4190,7 @@ public final class MessageRouting {
         }
       }
       /**
-       * <code>optional string token = 4;</code>
+       * <code>optional string token = 5;</code>
        *
        * <pre>
        * token
@@ -4088,26 +4201,26 @@ public final class MessageRouting {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000008;
+  bitField0_ |= 0x00000010;
         token_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional string token = 4;</code>
+       * <code>optional string token = 5;</code>
        *
        * <pre>
        * token
        * </pre>
        */
       public Builder clearToken() {
-        bitField0_ = (bitField0_ & ~0x00000008);
+        bitField0_ = (bitField0_ & ~0x00000010);
         token_ = getDefaultInstance().getToken();
         onChanged();
         return this;
       }
       /**
-       * <code>optional string token = 4;</code>
+       * <code>optional string token = 5;</code>
        *
        * <pre>
        * token
@@ -4118,26 +4231,26 @@ public final class MessageRouting {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000008;
+  bitField0_ |= 0x00000010;
         token_ = value;
         onChanged();
         return this;
       }
 
-      // optional string extra = 5;
+      // optional string extra = 6;
       private java.lang.Object extra_ = "";
       /**
-       * <code>optional string extra = 5;</code>
+       * <code>optional string extra = 6;</code>
        *
        * <pre>
        * 扩展字段
        * </pre>
        */
       public boolean hasExtra() {
-        return ((bitField0_ & 0x00000010) == 0x00000010);
+        return ((bitField0_ & 0x00000020) == 0x00000020);
       }
       /**
-       * <code>optional string extra = 5;</code>
+       * <code>optional string extra = 6;</code>
        *
        * <pre>
        * 扩展字段
@@ -4155,7 +4268,7 @@ public final class MessageRouting {
         }
       }
       /**
-       * <code>optional string extra = 5;</code>
+       * <code>optional string extra = 6;</code>
        *
        * <pre>
        * 扩展字段
@@ -4175,7 +4288,7 @@ public final class MessageRouting {
         }
       }
       /**
-       * <code>optional string extra = 5;</code>
+       * <code>optional string extra = 6;</code>
        *
        * <pre>
        * 扩展字段
@@ -4186,26 +4299,26 @@ public final class MessageRouting {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000010;
+  bitField0_ |= 0x00000020;
         extra_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional string extra = 5;</code>
+       * <code>optional string extra = 6;</code>
        *
        * <pre>
        * 扩展字段
        * </pre>
        */
       public Builder clearExtra() {
-        bitField0_ = (bitField0_ & ~0x00000010);
+        bitField0_ = (bitField0_ & ~0x00000020);
         extra_ = getDefaultInstance().getExtra();
         onChanged();
         return this;
       }
       /**
-       * <code>optional string extra = 5;</code>
+       * <code>optional string extra = 6;</code>
        *
        * <pre>
        * 扩展字段
@@ -4216,7 +4329,7 @@ public final class MessageRouting {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000010;
+  bitField0_ |= 0x00000020;
         extra_ = value;
         onChanged();
         return this;
@@ -11725,32 +11838,33 @@ public final class MessageRouting {
       "artbeat\030\001 \001(\005\022\r\n\005extra\030\002 \001(\t\".\n\tHeartbea" +
       "t\022\022\n\nlast_delay\030\001 \001(\005\022\r\n\005extra\030\002 \001(\t\":\n\021" +
       "HeartbeatResponse\022\026\n\016next_heartbeat\030\001 \001(" +
-      "\005\022\r\n\005extra\030\002 \001(\t\"\\\n\tUserLogin\022\017\n\007user_id" +
-      "\030\001 \002(\t\022\017\n\007channel\030\002 \001(\t\022\017\n\007version\030\003 \001(\t" +
-      "\022\r\n\005token\030\004 \001(\t\022\r\n\005extra\030\005 \001(\t\"2\n\021UserLo" +
-      "ginResponse\022\016\n\006status\030\001 \002(\010\022\r\n\005extra\030\002 \001",
-      "(\t\",\n\nUserLogout\022\017\n\007user_id\030\001 \002(\t\022\r\n\005ext" +
-      "ra\030\002 \001(\t\"3\n\022UserLogoutResponse\022\016\n\006status" +
-      "\030\001 \002(\010\022\r\n\005extra\030\002 \001(\t\"r\n\007Message\022\022\n\nmess" +
-      "age_id\030\001 \002(\t\022\016\n\006sender\030\002 \002(\t\022\020\n\010receiver" +
-      "\030\003 \002(\t\022\024\n\014message_body\030\004 \002(\t\022\014\n\004date\030\005 \001" +
-      "(\003\022\r\n\005extra\030\006 \001(\t\"D\n\017MessageResponse\022\022\n\n" +
-      "message_id\030\001 \002(\t\022\016\n\006status\030\002 \002(\010\022\r\n\005extr" +
-      "a\030\003 \001(\t\"F\n\021ReceiveMessageAck\022\022\n\nmessage_" +
-      "id\030\001 \002(\t\022\016\n\006status\030\002 \002(\005\022\r\n\005extra\030\003 \001(\t\"" +
-      "s\n\rNormalMessage\022\022\n\nmessage_id\030\001 \002(\t\022\020\n\010",
-      "receiver\030\002 \002(\t\022\017\n\007content\030\003 \002(\014\022\014\n\004date\030" +
-      "\004 \002(\003\022\016\n\006expire\030\005 \001(\005\022\r\n\005extra\030\006 \001(\t\"E\n\020" +
-      "NormalMessageAck\022\022\n\nmessage_id\030\001 \002(\t\022\016\n\006" +
-      "status\030\002 \002(\005\022\r\n\005extra\030\003 \001(\t*\275\002\n\016MessageC" +
-      "ommand\022\022\n\016HEARTBEAT_INIT\020\000\022\r\n\tHEARTBEAT\020" +
-      "\001\022\016\n\nUSER_LOGIN\020\002\022\017\n\013USER_LOGOUT\020\003\022\013\n\007ME" +
-      "SSAGE\020\004\022\027\n\023RECEIVE_MESSAGE_ACK\020\005\022\027\n\023NORM" +
-      "ARL_MESSAGE_ACK\020\006\022\033\n\027HEARTBEAT_INIT_RESP" +
-      "ONSE\020d\022\026\n\022HEARTBEAT_RESPONSE\020e\022\027\n\023USER_L" +
-      "OGIN_RESPONSE\020f\022\030\n\024USER_LOGOUT_RESPONSE\020",
-      "g\022\024\n\020MESSAGE_RESPONSE\020h\022\024\n\017RECEIVE_MESSA" +
-      "GE\020\310\001\022\024\n\017NORMARL_MESSAGE\020\311\001"
+      "\005\022\r\n\005extra\030\002 \001(\t\"l\n\tUserLogin\022\017\n\007user_id" +
+      "\030\001 \002(\t\022\016\n\006app_id\030\002 \001(\005\022\017\n\007channel\030\003 \001(\t\022" +
+      "\017\n\007version\030\004 \001(\t\022\r\n\005token\030\005 \001(\t\022\r\n\005extra" +
+      "\030\006 \001(\t\"2\n\021UserLoginResponse\022\016\n\006status\030\001 ",
+      "\002(\010\022\r\n\005extra\030\002 \001(\t\",\n\nUserLogout\022\017\n\007user" +
+      "_id\030\001 \002(\t\022\r\n\005extra\030\002 \001(\t\"3\n\022UserLogoutRe" +
+      "sponse\022\016\n\006status\030\001 \002(\010\022\r\n\005extra\030\002 \001(\t\"r\n" +
+      "\007Message\022\022\n\nmessage_id\030\001 \002(\t\022\016\n\006sender\030\002" +
+      " \002(\t\022\020\n\010receiver\030\003 \002(\t\022\024\n\014message_body\030\004" +
+      " \002(\t\022\014\n\004date\030\005 \001(\003\022\r\n\005extra\030\006 \001(\t\"D\n\017Mes" +
+      "sageResponse\022\022\n\nmessage_id\030\001 \002(\t\022\016\n\006stat" +
+      "us\030\002 \002(\010\022\r\n\005extra\030\003 \001(\t\"F\n\021ReceiveMessag" +
+      "eAck\022\022\n\nmessage_id\030\001 \002(\t\022\016\n\006status\030\002 \002(\005" +
+      "\022\r\n\005extra\030\003 \001(\t\"s\n\rNormalMessage\022\022\n\nmess",
+      "age_id\030\001 \002(\t\022\020\n\010receiver\030\002 \002(\t\022\017\n\007conten" +
+      "t\030\003 \002(\014\022\014\n\004date\030\004 \002(\003\022\016\n\006expire\030\005 \001(\005\022\r\n" +
+      "\005extra\030\006 \001(\t\"E\n\020NormalMessageAck\022\022\n\nmess" +
+      "age_id\030\001 \002(\t\022\016\n\006status\030\002 \002(\005\022\r\n\005extra\030\003 " +
+      "\001(\t*\275\002\n\016MessageCommand\022\022\n\016HEARTBEAT_INIT" +
+      "\020\000\022\r\n\tHEARTBEAT\020\001\022\016\n\nUSER_LOGIN\020\002\022\017\n\013USE" +
+      "R_LOGOUT\020\003\022\013\n\007MESSAGE\020\004\022\027\n\023RECEIVE_MESSA" +
+      "GE_ACK\020\005\022\027\n\023NORMARL_MESSAGE_ACK\020\006\022\033\n\027HEA" +
+      "RTBEAT_INIT_RESPONSE\020d\022\026\n\022HEARTBEAT_RESP" +
+      "ONSE\020e\022\027\n\023USER_LOGIN_RESPONSE\020f\022\030\n\024USER_",
+      "LOGOUT_RESPONSE\020g\022\024\n\020MESSAGE_RESPONSE\020h\022" +
+      "\024\n\017RECEIVE_MESSAGE\020\310\001\022\024\n\017NORMARL_MESSAGE" +
+      "\020\311\001"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -11786,7 +11900,7 @@ public final class MessageRouting {
           internal_static_common_UserLogin_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_common_UserLogin_descriptor,
-              new java.lang.String[] { "UserId", "Channel", "Version", "Token", "Extra", });
+              new java.lang.String[] { "UserId", "AppId", "Channel", "Version", "Token", "Extra", });
           internal_static_common_UserLoginResponse_descriptor =
             getDescriptor().getMessageTypes().get(5);
           internal_static_common_UserLoginResponse_fieldAccessorTable = new

@@ -48,7 +48,7 @@ func FindOfflineMessages(userId string) ([]*common.Message, error) {
 	return messages, nil
 }
 
-func UpdateStatus(receiver interface {}, messageId string, status int) error {
+func UpdateMessageStatus(receiver interface {}, messageId string, status int) error {
 	receiverInt, _ := strconv.Atoi(receiver.(string))
 	glog.Infof("Update status: %v, %v", receiverInt%16, status)
 	timestamp := convert.TimestampToTimeString(time.Now().Unix())

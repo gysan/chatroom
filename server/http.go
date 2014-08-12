@@ -13,6 +13,7 @@ import (
 	"code.google.com/p/goprotobuf/proto"
 	"github.com/gysan/chatroom/handlers"
 	"strconv"
+	"github.com/gysan/chatroom/dao"
 )
 
 func StartHttp() {
@@ -63,6 +64,8 @@ func Push(w http.ResponseWriter, r *http.Request) {
 		glog.Errorf("Packet: %v", err)
 		return
 	}
+
+	dao.InsertNormalMessage(normalMessage)
 
 	receiverConn := handlers.UserMapConn.Get(receiver).(*net.TCPConn)
 	handlers.SendByteStream(receiverConn, pac.GetBytes())

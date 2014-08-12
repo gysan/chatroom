@@ -228,14 +228,16 @@ func (m *HeartbeatResponse) GetExtra() string {
 type UserLogin struct {
 	// 用户id
 	UserId *string `protobuf:"bytes,1,req,name=user_id" json:"user_id,omitempty"`
+	// 应用id
+	AppId *int32 `protobuf:"varint,2,opt,name=app_id" json:"app_id,omitempty"`
 	// Channel
-	Channel *string `protobuf:"bytes,2,opt,name=channel" json:"channel,omitempty"`
+	Channel *string `protobuf:"bytes,3,opt,name=channel" json:"channel,omitempty"`
 	// 版本
-	Version *string `protobuf:"bytes,3,opt,name=version" json:"version,omitempty"`
+	Version *string `protobuf:"bytes,4,opt,name=version" json:"version,omitempty"`
 	// token
-	Token *string `protobuf:"bytes,4,opt,name=token" json:"token,omitempty"`
+	Token *string `protobuf:"bytes,5,opt,name=token" json:"token,omitempty"`
 	// 扩展字段
-	Extra            *string `protobuf:"bytes,5,opt,name=extra" json:"extra,omitempty"`
+	Extra            *string `protobuf:"bytes,6,opt,name=extra" json:"extra,omitempty"`
 	XXX_unrecognized []byte  `json:"-"`
 }
 
@@ -248,6 +250,13 @@ func (m *UserLogin) GetUserId() string {
 		return *m.UserId
 	}
 	return ""
+}
+
+func (m *UserLogin) GetAppId() int32 {
+	if m != nil && m.AppId != nil {
+		return *m.AppId
+	}
+	return 0
 }
 
 func (m *UserLogin) GetChannel() string {
