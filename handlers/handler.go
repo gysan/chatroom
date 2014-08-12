@@ -37,6 +37,7 @@ func CloseConn(conn *net.TCPConn) {
 	ConnMapUser.Delete(conn)
 	glog.Infof("Conn device map size: %v, Values: %v", ConnMapUser.Size(), ConnMapUser.Items())
 	if userId != nil {
+		dao.UuidOffLine(userId.(string))
 		userIdInt, _ := strconv.Atoi(userId.(string))
 		dao.UpdateOnline(userIdInt, 0)
 	}
@@ -53,6 +54,7 @@ func InitConn(conn *net.TCPConn, userId string) {
 	ConnMapUser.Set(conn, userId)
 	glog.Infof("Conn device map size: %v, Values: %v", ConnMapUser.Size(), ConnMapUser.Items())
 	userIdInt, _ := strconv.Atoi(userId)
+	dao.UuidOnLine(userId)
 	dao.UpdateOnline(userIdInt, 1)
 	glog.Info("Init connection.")
 }
