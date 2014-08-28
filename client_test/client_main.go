@@ -162,7 +162,7 @@ func testBB(sender string) {
 	// 定时发送心跳包
 	go ping(conn)
 
-	go sendMessage(conn, sender, receiver)
+//	go sendMessage(conn, sender, receiver)
 
 	// 死循环，接收消息和发送消息
 	for {

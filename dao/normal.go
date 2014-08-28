@@ -66,7 +66,7 @@ func InsertNormalMessage(message *common.NormalMessage) error {
 	glog.Infof("Insert message: [receiver: %v]", receiverInt%16)
 	timestamp := convert.TimestampToTimeString(time.Now().Unix())
 	_, err := GetNormalMessageDb().Exec("INSERT INTO `marry_me_normal_message_"+strconv.Itoa(receiverInt%16)+"` (`id`, `receiver`, `body`, `status`, `utime`, `ctime`) VALUES (?, ?, ?, ?, ?, ?)",
-		convert.StringToMd5(message.GetReceiver()+time.Now().String()), message.GetReceiver(), message.GetContent(), 0, timestamp, timestamp)
+		message.GetMessageId(), message.GetReceiver(), message.GetContent(), 0, timestamp, timestamp)
 	if err != nil {
 		glog.Errorf("db.Exec(\"INSERT INTO `marry_me_message` (`id`, `receiver`, `body`, `utime`, `ctime`) VALUES (?, ?, ?, ?, ?, ?, ?)\") failed (%v)", err)
 		return err

@@ -14,6 +14,7 @@ import (
 	"github.com/gysan/chatroom/handlers"
 	"strconv"
 	"github.com/gysan/chatroom/dao"
+	"github.com/gysan/chatroom/utils/convert"
 )
 
 func StartHttp() {
@@ -27,7 +28,6 @@ func Push(w http.ResponseWriter, r *http.Request) {
 	params := r.URL.Query()
 	glog.Infof("%v", params)
 	receiver := params.Get("receiver")
-	messageid := params.Get("messageId")
 	date := params.Get("date")
 	res := map[string]interface{}{"result": 0}
 	defer returnWrite(w, r, res)
@@ -53,8 +53,10 @@ func Push(w http.ResponseWriter, r *http.Request) {
 		panic(err)
 	}
 
+	messageId := convert.StringToMd5(receiver+time.Now().String())
+
 	normalMessage := &common.NormalMessage{
-		MessageId: proto.String(messageid),
+		MessageId: proto.String(messageId),
 		Receiver: proto.String(receiver),
 		Content: []byte(body),
 		Date: proto.Int64(i),
